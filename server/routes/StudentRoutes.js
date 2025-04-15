@@ -7,11 +7,9 @@ import Campaign from "../models/Campaign.js";
 import Template from "../models/Template.js";
 import User from "../models/User.js"; // Ensure you import the User model
 import Camhistory from "../models/Camhistory.js";
-// import ExcelStudent from "../models/Excelstudent.js";
 import { decryptPassword } from "../config/encryption.js";
 import EmailOpen from "../models/EmailOpen.js";
 import ClickTracking from "../models/ClickTracking.js";
-import apiConfig from "../../my-app/src/apiconfig/apiConfig.js";
 
 const router = express.Router();
 
@@ -97,7 +95,7 @@ router.post('/sendtestmail', async (req, res) => {
     };
 
     const generateTrackingLink = (originalUrl, userId, campaignId, recipientEmail) => {
-      return `${apiConfig.baseURL}/api/stud/track-click?emailId=${encodeURIComponent(recipientEmail)}&url=${encodeURIComponent(originalUrl)}&userId=${userId}&campaignId=${campaignId}`;
+      return `https://emailcon-backend.onrender.com/api/stud/track-click?emailId=${encodeURIComponent(recipientEmail)}&url=${encodeURIComponent(originalUrl)}&userId=${userId}&campaignId=${campaignId}`;
     };
 
 
@@ -275,7 +273,7 @@ router.post('/sendtestmail', async (req, res) => {
     }));
 
 
-    const trackingPixel = `<img src="${apiConfig.baseURL}/api/stud/track-email-open?emailId=${encodeURIComponent(emailData.recipient)}&userId=${userId}&campaignId=${campaignId}&t=${Date.now()}" width="1" height="1" style="display:none;" />`;
+    const trackingPixel = `<img src="https://emailcon-backend.onrender.com/api/stud/track-email-open?emailId=${encodeURIComponent(emailData.recipient)}&userId=${userId}&campaignId=${campaignId}&t=${Date.now()}" width="1" height="1" style="display:none;" />`;
 
     const mailOptions = {
       from: `"${emailData.aliasName}" <${email}>`,
@@ -471,7 +469,7 @@ router.post('/sendexcelEmail', async (req, res) => {
         .map(([key, value]) => `${key}:${value}`)
         .join(';');
       const generateTrackingLink = (originalUrl, userId, campaignId, recipientEmail) => {
-        return `${apiConfig.baseURL}/api/stud/track-click?emailId=${encodeURIComponent(recipientEmail)}&url=${encodeURIComponent(originalUrl)}&userId=${userId}&campaignId=${campaignId}`;
+        return `https://emailcon-backend.onrender.com/api/stud/track-click?emailId=${encodeURIComponent(recipientEmail)}&url=${encodeURIComponent(originalUrl)}&userId=${userId}&campaignId=${campaignId}`;
       };
       switch (type) {
         case 'logo':
@@ -642,7 +640,7 @@ router.post('/sendexcelEmail', async (req, res) => {
       contentType: file.mimetype
     }));
 
-    const trackingPixel = `<img src="${apiConfig.baseURL}/api/stud/track-email-open?emailId=${encodeURIComponent(recipientEmail)}&userId=${userId}&campaignId=${campaignId}&t=${Date.now()}" width="1" height="1" style="display:none;" />`;
+    const trackingPixel = `<img src="https://emailcon-backend.onrender.com/api/stud/track-email-open?emailId=${encodeURIComponent(recipientEmail)}&userId=${userId}&campaignId=${campaignId}&t=${Date.now()}" width="1" height="1" style="display:none;" />`;
 
     const mailOptions = {
       from: `"${aliasName}" <${email}>`,
@@ -844,7 +842,7 @@ router.post('/sendbulkEmail', async (req, res) => {
         .join(';');
 
       const generateTrackingLink = (originalUrl, userId, campaignId, recipientEmail) => {
-        return `${apiConfig.baseURL}/api/stud/track-click?emailId=${encodeURIComponent(recipientEmail)}&url=${encodeURIComponent(originalUrl)}&userId=${userId}&campaignId=${campaignId}`;
+        return `https://emailcon-backend.onrender.com/api/stud/track-click?emailId=${encodeURIComponent(recipientEmail)}&url=${encodeURIComponent(originalUrl)}&userId=${userId}&campaignId=${campaignId}`;
       };
 
       switch (type) {
@@ -1018,7 +1016,7 @@ router.post('/sendbulkEmail', async (req, res) => {
       path: file.fileUrl, // Use Cloudinary URL directly
       contentType: file.mimetype
     }));
-    const trackingPixel = `<img src="${apiConfig.baseURL}/api/stud/track-email-open?emailId=${encodeURIComponent(recipientEmail)}&userId=${userId}&campaignId=${campaignId}&t=${Date.now()}" width="1" height="1" style="display:none;" />`;
+    const trackingPixel = `<img src="https://emailcon-backend.onrender.com/api/stud/track-email-open?emailId=${encodeURIComponent(recipientEmail)}&userId=${userId}&campaignId=${campaignId}&t=${Date.now()}" width="1" height="1" style="display:none;" />`;
 
     const mailOptions = {
       from: `"${aliasName}" <${email}>`,
